@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Tower
+  - Enemy
+  - Field
+  - GameManager
+  - Player1
+  - Player2
+  - Player3
+  - Player4
+  - Enemy1
+  - Enemy2
+  - 'Enemy3 '
+  - Enemy4
+  - Tower2
+  - Tower3
+  - Tower4
+  - Tower1
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - EnemyAttack
+  - Player
+  - PlayerAttack
+  - Enemy
+  - Tower
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
