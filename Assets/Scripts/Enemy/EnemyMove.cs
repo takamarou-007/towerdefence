@@ -26,21 +26,49 @@ public class EnemyMove : MonoBehaviour
 
     private void Update()
     {
-        if(this.gameObject.tag == "Enemy1")
+        if (this.gameObject.tag == "Enemy1")
         {
-            _agent.destination = tower1.transform.position;
+            if(tower1 == null)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                _agent.destination = tower1.transform.position;
+            }
         }
         if(this.gameObject.tag == "Enemy2")
-        {   
-            _agent.destination = tower2.transform.position;
+        {
+            if (tower2 == null)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                _agent.destination = tower2.transform.position;
+            }
         }
         if(this.gameObject.tag == "Enemy3")
-        {     
-            _agent.destination = tower3.transform.position;
+        {
+            if (tower3 == null)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                _agent.destination = tower3.transform.position;
+            }
         }
         if(this.gameObject.tag == "Enemy4")
         {
-            _agent.destination = tower4.transform.position;
+            if (tower4 == null)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                _agent.destination = tower4.transform.position;
+            }
         }
     }
 

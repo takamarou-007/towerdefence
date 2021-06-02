@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerStatus : MobStatus
 {
@@ -13,7 +14,6 @@ public class PlayerStatus : MobStatus
     public float speed = 10;
     public float exPoint = 0;
     private float needExPoint;
-
     //次のステータスに行くために必要な経験値がリストになっている
     public int[] attackCounter;
     public int[] speedCounter;
@@ -35,6 +35,15 @@ public class PlayerStatus : MobStatus
     public GameObject buttonEnemyToPlayer2;
     public GameObject buttonEnemyToPlayer3;
     public GameObject buttonEnemyToPlayer4;
+    //敵モブの生成のための経験値
+    private int exPointToGenerate = 15;
+    //自分が守っているタワーを認識
+    private GameObject tower1;
+    private GameObject tower2;
+    private GameObject tower3;
+    private GameObject tower4;
+    //画面遷移用
+    private float time = 0;
 
     protected override void Start()
     {
@@ -47,6 +56,11 @@ public class PlayerStatus : MobStatus
         alertColor = alert.GetComponent<Text>().color;
         alertColor.a = 0;
         alert.GetComponent<Text>().color = alertColor;
+        //タワーの取得
+        tower1 = GameObject.Find("Tower-1");
+        tower2 = GameObject.Find("Tower-2");
+        tower3 = GameObject.Find("Tower-3");
+        tower4 = GameObject.Find("Tower-4");
     }
 
     private void Update()
@@ -56,13 +70,49 @@ public class PlayerStatus : MobStatus
             alertColor.a -= fadeoutSpeed;
             alert.GetComponent<Text>().color = alertColor;
         }
-
+        //時間で経験値が入るように
         currentTime += Time.deltaTime;
-
         if (currentTime > span)
         {
             exPoint += 10;
             currentTime = 0f;
+        }
+
+        if (this.gameObject.tag == "Player1")
+        {
+            if(tower1 == null)
+            {
+                GameoverSceneManegement();
+            }
+        }
+        if (this.gameObject.tag == "Player2")
+        {
+            if (tower2 == null)
+            {
+                GameoverSceneManegement();
+            }
+        }
+        if (this.gameObject.tag == "Player3")
+        {
+            if (tower3 == null)
+            {
+                GameoverSceneManegement();
+            }
+        }
+        if (this.gameObject.tag == "Player4")
+        {
+            if (tower4 == null)
+            {
+                GameoverSceneManegement();
+            }
+        }
+    }
+    void GameoverSceneManegement()
+    {
+        time += Time.deltaTime;
+        if(time > 2.0f)
+        {
+            SceneManager.LoadScene("GameOverScene");
         }
     }
 
@@ -80,6 +130,7 @@ public class PlayerStatus : MobStatus
         DoReinforcementAttack();
     }
 
+    //アタック強化の処理
     public void DoReinforcementAttack()
     {
         if (exPoint >= needExPoint)
@@ -97,6 +148,7 @@ public class PlayerStatus : MobStatus
         }
     }
 
+    //スピード強化をの処理
     public void DoReinforcementSpeed()
     {
         if (exPoint >= needExPoint)
@@ -196,22 +248,66 @@ public class PlayerStatus : MobStatus
     //敵フィールドへの敵Mobの送還
     public void ClickToCenerateEnemyMobPlayer1()
     {
-        randomSelectSpawnerScript.SelectSpawner1();
+        if(exPoint > exPointToGenerate)
+        {
+            randomSelectSpawnerScript.SelectSpawner1();
+            exPoint -= exPointToGenerate;
+        }
+        else
+        {
+            alertColor.a = 1;
+            Invoke("FadeOutText", 2);
+            Debug.Log("経験値が足りないよ");
+            return;
+        }
     }
     public void ClickToGenerateEnemyMobPlayer2()
     {
-        randomSelectSpawnerScript.SelectSpawner2();
+        if (exPoint > exPointToGenerate)
+        {
+            randomSelectSpawnerScript.SelectSpawner2();
+            exPoint -= exPointToGenerate;
+        }
+        else
+        {
+            alertColor.a = 1;
+            Invoke("FadeOutText", 2);
+            Debug.Log("経験値が足りないよ");
+            return;
+        }
     }
     public void ClickToGenerateEnemyMobPlayer3()
     {
-        randomSelectSpawnerScript.SelectSpawner3();
+        if (exPoint > exPointToGenerate)
+        {
+            randomSelectSpawnerScript.SelectSpawner3();
+            exPoint -= exPointToGenerate;
+        }
+        else
+        {
+            alertColor.a = 1;
+            Invoke("FadeOutText", 2);
+            Debug.Log("経験値が足りないよ");
+            return;
+        }
     }
     public void ClickToGenerateEnemyMobPlayer4()
     {
-        randomSelectSpawnerScript.SelectSpawner4();
+        if (exPoint > exPointToGenerate)
+        {
+            randomSelectSpawnerScript.SelectSpawner4();
+            exPoint -= exPointToGenerate;
+        }
+        else
+        {
+            alertColor.a = 1;
+            Invoke("FadeOutText", 2);
+            Debug.Log("経験値が足りないよ");
+            return;
+        }
     }
     
-    //”経験値が足りないよ”を出すときに使っている
+    //"経験値が足りないよ”を出すときに使っている
     void FadeOutText()
     {
         alertColor.a = 0;

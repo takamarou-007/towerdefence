@@ -22,11 +22,10 @@ public class TowerStatus : MonoBehaviour
         else
         {
             time += Time.deltaTime;
-            if (time > 3.0f)
+            if (time > 2.0f)
             {
                 SceneManager.LoadScene("GameOverScene");
             }
-          
         }
     }
 }
